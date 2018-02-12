@@ -35,7 +35,9 @@ mergedNEI <- merge(x = NEI, y = SCC, by = "SCC", all.x=TRUE)  # by adding all.x,
 BCLAMotor <- filter(mergedNEI,fips %in% c("24510","06037"),Data.Category %in% c("Nonroad","Onroad")) %>%
         group_by(year,fips) %>%
         summarize(motor_emissions = sum(Emissions))
-BCLAMotor$fips[BCLAMotor$fips=="24510"] <- "Baltimore, MD"
+
+## For clearly understanding which fips code is for Baltimore and which one is for LA, we will reassign with the appropriate names
+BCLAMotor$fips[BCLAMotor$fips=="24510"] <- "Baltimore, MD" 
 BCLAMotor$fips[BCLAMotor$fips=="06037"] <- "Los Angeles, CA"
 BCLAMotor
 # Then, using ggplot2 plotting system we plot total emissions by year in Baltimore City by year
